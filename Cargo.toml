@@ -1,0 +1,27 @@
+[package]
+name = "gkeys"
+version = "2.0.0"
+edition = "2021"
+description = "Standalone G-keys for the A4Tech X7 G800V keyboard on Windows"
+license = "MIT"
+publish = false
+
+[dependencies]
+# Pure-Rust Windows backend: no C compiler needed for hidapi
+hidapi = { version = "2.6", default-features = false, features = ["windows-native"] }
+winreg = "0.56"
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_System_Console",
+    "Win32_System_Threading",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
